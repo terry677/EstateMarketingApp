@@ -22,7 +22,6 @@ def create_app():
 
     create_database(app)
 
-
     return app
 
 def create_database(app):
