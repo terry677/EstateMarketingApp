@@ -17,5 +17,8 @@ def view_users():
     # Retrieve all users from the database
     users = User.query.all()
 
+    # Get the current authenticated user, if any
+    user = current_user if current_user.is_authenticated else None
+
     # Render a template to display the user data
-    return render_template('users.html', users=current_user)
+    return render_template('users.html', user=user)
