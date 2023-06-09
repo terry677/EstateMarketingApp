@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Sign-Up{% endblock %} {% block
+content %}
+<form method="POST" action="/sign_up">
+  <h3 align="center">Sign Up</h3>
+
+  <div class="form-group">
+    <label for="FirstName">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter first name"
+      id="firstname"
+      name="firstname"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="LastName">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter first name"
+      id="lastname"
+      name="lastname"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Enter email"
+      id="email"
+      name="email"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone Number:</label>
+    <input
+      type="tel"
+      class="form-control"
+      id="phone"
+      name="phone"
+      pattern="[0-9]{10}"
+      inputmode="numeric"
+      required
+    />
+    <small class="form-text text-muted"
+      >Please enter a 10-digit phone number.</small
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="password1">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Enter password"
+      id="password1"
+      name="password1"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password2">Password (Confirm)</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Confirm password"
+      id="password2"
+      name="password2"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
