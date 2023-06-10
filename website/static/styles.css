@@ -1,12 +1,26 @@
-.container {
+body {
+  overflow-y: hidden;
+}
+
+.containers {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 20px);
+  width: 100%;
+  position: relative; /* Ensure the container is positioned relatively */
+
+  /* Background image properties */
+  background-image: url("../static/images/jason-dent-w3eFhqXjkZE-unsplash.jpg"); /* Replace with the path to your background image */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Add this line to fix the background image */
 }
 
 .buttons {
+  z-index: 20;
+  position: relative;
   margin-top: 20px;
 }
 
@@ -18,17 +32,32 @@
   color: #fff;
   text-decoration: none;
   margin-right: 10px;
+  border-radius: 10px;
 }
 
 .signup-btn:hover,
 .login-btn:hover {
-  background-color: #0056b3;
+  background-color: #0056b3 !important;
+  color: #fff;
+  text-decoration: none;
 }
 
 .fancy-text {
   font-family: "Your Fancy Font", cursive;
   font-size: 48px;
-  color: #ff00ff; /* Change to the desired text color */
+  z-index: 20;
+  position: relative;
+  color: #fff; /* Change to the desired text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
   /* Add more CSS properties to further customize the fancy text style */
+}
+
+.containers::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as desired */
 }
