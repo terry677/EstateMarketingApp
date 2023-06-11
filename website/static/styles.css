@@ -61,3 +61,13 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as desired */
 }
+
+.add {
+  display: flex;
+  flex-direction: space-between !important;
+  align-items: center;
+}
+
+.upload {
+  margin-left: auto;
+}
