@@ -11,7 +11,11 @@ views  = Blueprint('views', __name__)
 def landing_page():
     return render_template('landing.html')
 
-@views.route('/home')
+@views.route('/dashboard')
 @login_required
+def dashboard():
+    return  render_template("dashboard.html", user=current_user)
+
+@views.route('/home')
 def home():
-    return  render_template("home.html", user=current_user)
+    return render_template('home.html')
