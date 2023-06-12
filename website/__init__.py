@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+import os
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -23,7 +24,9 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     
 
-    
+    # Create the "uploads" directory if it doesn't exist
+    uploads_dir = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
+    os.makedirs(uploads_dir, exist_ok=True)
 
     create_database(app)
 

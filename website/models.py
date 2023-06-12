@@ -1,6 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from datetime import datetime
+from flask import url_for
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -25,7 +26,9 @@ class User(db.Model, UserMixin):
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(100), nullable=False)
-    filepath = db.Column(db.String(200), nullable=False)
-    property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
-    property = db.relationship('Property', backref=db.backref('images', lazy=True))
+    filename = db.Column(db.String(255))
+    filepath = db.Column(db.String(255))
+    property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
+
+    def get_image_url(self):
+        return url_for('static', filename=self.filepath)
