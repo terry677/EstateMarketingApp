@@ -26,7 +26,7 @@ def dashboard():
     first_name = user.firstname if user else None
     return render_template("dashboard.html", user=current_user, first_name=first_name)
 
-@views.route('/upload', methods=['POST'])
+@views.route('/upload', methods=['POST','GET'])
 @login_required
 def upload_form():
     app = create_app()  # Import app instance here
