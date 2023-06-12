@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template,request
 from .models import User, Property, Image
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import  login_required, current_user
 from . import db, create_app
 from werkzeug.utils import secure_filename
 import os
@@ -63,3 +63,8 @@ def upload_form():
         print('Property and image uploaded successfully')
 
     return render_template('upload.html', user=current_user)
+
+@views.route('/home')
+def home():
+    images = Image.query.all()
+    return render_template('home.html', user=current_user,images=images)

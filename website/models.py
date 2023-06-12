@@ -29,6 +29,7 @@ class Image(db.Model):
     filename = db.Column(db.String(255))
     filepath = db.Column(db.String(255))
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
+    property = db.relationship('Property', backref='images')
 
     def get_image_url(self):
         return url_for('static', filename=self.filepath)
