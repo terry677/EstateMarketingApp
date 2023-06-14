@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template,request
+from flask import Blueprint, render_template,request, flash
 from .models import User, Property, Image
 from flask_login import  login_required, current_user
 from . import db, create_app
@@ -52,15 +52,15 @@ def upload_form():
 
         # Save image to the database and upload folder
         filename = secure_filename(photo.filename)
-        folder_path = os.path.join(app.root_path, 'uploads')  # Get the absolute path to the "uploads" folder
+        folder_path = os.path.join(app.root_path, 'static/uploads')  # Get the absolute path to the "uploads" folder
         filepath = os.path.join(folder_path, filename)
         photo.save(filepath)
 
-        image_db = Image(filename=filename, filepath=f'uploads/{filename}', property_id=property.id)  # Store the relative path
+        image_db = Image(filename=filename, filepath=f'static/uploads/{filename}', property_id=property.id)  # Store the relative path
         db.session.add(image_db)
         db.session.commit()
 
-        print('Property and image uploaded successfully')
+        flash('Property and image uploaded successfully')
 
     return render_template('upload.html', user=current_user)
 
