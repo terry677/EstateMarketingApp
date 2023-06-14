@@ -32,4 +32,4 @@ class Image(db.Model):
     property = db.relationship('Property', backref='images')
 
     def get_image_url(self):
-        return url_for('static', filename=self.filepath)
+        return f"/static/uploads/{self.filename}"
