@@ -91,6 +91,3 @@ def delete_acc():
     else:
         flash('User not found')
         return redirect(url_for('views.dashboard'))
-
-
-
