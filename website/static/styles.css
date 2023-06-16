@@ -2,6 +2,14 @@ body {
   overflow-y: hidden;
 }
 
+.desc_text{
+  color: #ffffff;
+  font-size: 30px;
+  z-index: 20;
+  font-family: 'Caveat', cursive;
+
+}
+
 .containers {
   display: flex;
   flex-direction: column;
@@ -24,26 +32,25 @@ body {
   margin-top: 20px;
 }
 
-.signup-btn,
-.login-btn {
+.get_started {
   display: inline-block;
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
+  font-size: 20px;
   text-decoration: none;
   margin-right: 10px;
   border-radius: 10px;
 }
 
-.signup-btn:hover,
-.login-btn:hover {
-  background-color: #0056b3 !important;
+.get_started:hover {
+  background-color: #0056b3;
   color: #fff;
   text-decoration: none;
 }
 
 .fancy-text {
-  font-family: "Your Fancy Font", cursive;
+  font-family: 'Roboto', sans-serif;
   font-size: 48px;
   z-index: 20;
   position: relative;

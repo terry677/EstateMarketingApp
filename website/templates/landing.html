@@ -7,7 +7,9 @@
       type="text/css"
       href="{{ url_for('static', filename='styles.css') }}"
     />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -41,9 +43,9 @@
     </nav>
     <div class="containers">
       <h1 class="fancy-text">Welcome TexEstate</h1>
+      <p class="desc_text">making your search seamlessly easy...</p>
       <div class="buttons">
-        <a href="/sign_up" class="signup-btn">Sign Up</a>
-        <a href="/login" class="login-btn">Login</a>
+        <a href="home" class="get_started">Get Started</a>
       </div>
     </div>
 

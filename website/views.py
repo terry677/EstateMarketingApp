@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template,request, flash
+from flask import Blueprint, render_template,request, flash, redirect, url_for
 from .models import User, Property, Image
 from flask_login import  login_required, current_user
 from . import db, create_app
@@ -19,10 +19,12 @@ views = Blueprint('views', __name__)
 def landing_page():
     return render_template("landing.html")
 
-@views.route('/dashboard')
+
+@views.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
     user = get_user_data()
+    
     first_name = user.firstname if user else None
     return render_template("dashboard.html", user=current_user, first_name=first_name)
 
@@ -68,3 +70,27 @@ def upload_form():
 def home():
     images = Image.query.all()
     return render_template('home.html', user=current_user,images=images)
+
+@views.route('/delete', methods=['GET', 'POST'])
+@login_required
+def delete_acc():
+    user = get_user_data()
+    if user:
+        # Delete associated properties and images
+        properties = user.properties
+        for property in properties:
+            images = property.images
+            for image in images:
+                db.session.delete(image)
+            db.session.delete(property)
+        db.session.delete(user)
+        db.session.commit()
+        
+        flash('Account deleted successfully')
+        return redirect(url_for('views.home'))
+    else:
+        flash('User not found')
+        return redirect(url_for('views.dashboard'))
+
+
+
