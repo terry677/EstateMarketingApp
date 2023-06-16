@@ -1,7 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from datetime import datetime
-from flask import url_for
+
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
