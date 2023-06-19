@@ -33,3 +33,6 @@ class Image(db.Model):
 
     def get_image_url(self):
         return f"/static/uploads/{self.filename}"
+
+
+

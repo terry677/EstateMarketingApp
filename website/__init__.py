@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 import os
+from .format import format_price
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -22,7 +23,7 @@ def create_app():
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-    
+    app.jinja_env.filters['format_price'] = format_price
 
     # Create the "uploads" directory if it doesn't exist
     uploads_dir = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])

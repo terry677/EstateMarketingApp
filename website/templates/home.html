@@ -1,13 +1,12 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% block title %}Home{% endblock %}
+{% block content %} 
 
-{% block title %}Home{% endblock %}
-
-{% block content %}
-<style>
+<!-- <style>
   .carousel-item img {
-    max-height: 500px;
+    max-height: 600px;
     width: 50%;
     object-fit: cover;
+    border-radius: 20px;
   }
   .carousel-caption {
     background-color: rgba(0, 0, 0, 0.5);
@@ -19,13 +18,74 @@
     font-size: 18px;
     color: #fff;
   }
+
   .carousel-caption p {
     font-size: 14px;
     color: #fff;
   }
-</style>
+  .price{
+    display: flex;
+    justify-content: center;
 
-<h1>Properties</h1>
+  }
+</style> -->
+
+
+
+
+
+<!-- <style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    bottom: 10px;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  .carousel-caption p {
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .price {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .bd-example {
+    height: 100vh;
+    position: relative;
+  }
+  
+  .carousel-inner {
+    height: 100%;
+  }
+  
+  .carousel-item {
+    height: 100%;
+  }
+</style> -->
+
+
+<!-- <h1>Properties</h1>
 <div class="bd-example">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -37,12 +97,18 @@
       {% for image in images %}
       <div class="carousel-item {% if loop.first %}active{% endif %}">
         <img src="{{ image.get_image_url() }}" class="d-block w-100" alt="{{ image.property.title }}">
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-md-block">
           <h5>{{ image.property.title }}</h5>
           <p>{{ image.property.description }}</p>
-          <p>{{ image.property.price }}</p>
-          <p>{{ image.property.location }}</p>
-          <p>{{ image.property.user.phone_number }}</p>
+          <p>Name: {{ image.property.user.firstname }}</p>
+          <div class="price">
+            <span>Price: &nbsp</span>
+            <span>₦</span>
+            <p>{{ image.property.price }}</p>
+          </div>
+          
+          <p>Location: {{ image.property.location }}</p>
+          <p>Contact: {{ image.property.user.phone_number }}</p>
         </div>
       </div>
       {% endfor %}
@@ -56,5 +122,84 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+</div> -->
+
+
+<style>
+
+  body {
+    overflow: auto; /* Enable scrollbar */
+  }
+  .property-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .property-card img {
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .property-card .card-body {
+    padding: 20px;
+  }
+
+  .property-card h5.card-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .property-card p.card-text {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+
+  .property-card .price {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .property-card .price span {
+    margin-right: 5px;
+  }
+</style>
+
+
+<h1>Properties</h1>
+
+<div class="container">
+  <div class="row">
+    {% for image in images %}
+    <div class="col-md-4">
+      <div class="card property-card">
+        <img src="{{ image.get_image_url() }}" class="card-img-top" alt="{{ image.property.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ image.property.title }}</h5>
+          <p class="card-text">{{ image.property.description }}</p>
+          <p class="card-text">Name: {{ image.property.user.firstname }}</p>
+          <!-- <div class="price">
+            <span>Price: ₦</span>
+            <p>{{ image.property.price }}</p>
+          </div> -->
+          <p class="card-text">Price: ₦{{ image.property.price|format_price }}</p>
+          <p class="card-text">Location: {{ image.property.location }}</p>
+          <p class="card-text">Contact: {{ image.property.user.phone_number }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
 </div>
+
 {% endblock %}

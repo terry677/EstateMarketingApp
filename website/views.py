@@ -24,14 +24,13 @@ def landing_page():
 @login_required
 def dashboard():
     user = get_user_data()
-    
     first_name = user.firstname if user else None
     return render_template("dashboard.html", user=current_user, first_name=first_name)
 
 @views.route('/upload', methods=['POST','GET'])
 @login_required
 def upload_form():
-    app = create_app()  # Import app instance here
+    app = create_app() #Import app instance here
     if request.method == 'POST':
         # Get form data
         title = request.form['title']
@@ -46,7 +45,7 @@ def upload_form():
             description=description,
             price=price,
             location=location,
-            photo=photo.filename,
+            photo=f"static/uploads/{photo.filename}",
             user_id=current_user.id  # Set the user_id to the ID of the logged-in user
         )
         db.session.add(property)
@@ -61,7 +60,7 @@ def upload_form():
         image_db = Image(filename=filename, filepath=f'static/uploads/{filename}', property_id=property.id)  # Store the relative path
         db.session.add(image_db)
         db.session.commit()
-
+    
         flash('Property and image uploaded successfully')
 
     return render_template('upload.html', user=current_user)
@@ -69,7 +68,22 @@ def upload_form():
 @views.route('/home')
 def home():
     images = Image.query.all()
-    return render_template('home.html', user=current_user,images=images)
+    user = get_user_data()
+    properties = Property.query.all()
+
+    if user:
+        # Retrieve the properties of the user
+        properties = user.properties
+
+        # Print the properties to the console
+        for property in properties:
+            print(f"Title: {property.title}")
+            print(f"Description: {property.description}")
+            print(f"Price: {property.price}")
+            print(f"Location: {property.location}")
+            print("")
+    return render_template('home.html', user=current_user,properties=properties, images=images)
+
 
 @views.route('/delete', methods=['GET', 'POST'])
 @login_required
