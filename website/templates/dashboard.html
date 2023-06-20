@@ -1,11 +1,94 @@
-{% extends "base.html" %} {% block title %}User Dashboard{% endblock %} {% block
-content %}
-<h1>Welcome, {{user.firstname}}!</h1>
-<p>This is your personalized user dashboard.</p>
-<div class="add">
-  <small>click on the add button to upload property for advert</small>
-  <a href="/upload" class="btn btn-primary upload">+</a>
-</div>
+{% extends "base.html" %}
+{% block title %}User Dashboard{% endblock %}
+{% block content %}
 
-<!-- Add your dashboard content here -->
+<style>
+
+  body {
+    overflow: auto; /* Enable scrollbar */
+  }
+  .add{
+    margin-bottom: 10px;
+  }
+  .property-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .property-card img {
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .property-card .card-body {
+    padding: 20px;
+  }
+
+  .property-card h5.card-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .property-card p.card-text {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+
+  .property-card .price {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .property-card .price span {
+    margin-right: 5px;
+  }
+</style>
+  <h1>Welcome, {{ user.firstname }}!</h1>
+  <p>This is your personalized user dashboard.</p>
+  <div class="add">
+    <small>Click on the add button to upload a property for advertisement.</small>
+    <a href="/upload" class="btn btn-primary upload">+</a>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% if properties %}
+        {% for property in properties %}
+          <div class="col-md-4">
+            <div class="card property-card">
+              <img src="{{ property.images[0].get_image_url() }}" class="card-img-top" alt="{{ property.title }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ property.title }}</h5>
+                <p class="card-text">Description: {{ property.description }}</p>
+                <p class="card-text">Price:₦ {{ property.price|format_price }}</p>
+                <p class="card-text">Location: {{ property.location }}</p>
+                <p class="card-text">Phone_number: {{ property.user.phone_number }}</p>
+                <p class="card-text">Email: {{ property.user.email }}</p>
+                <!-- Add delete button for each property -->
+                <!-- <form action="{{ url_for('views.delete_property', property_id=property.id) }}" method="POST">
+                  <input type="submit" value="Delete" class="btn btn-danger">
+                </form> -->
+                <form action="{{ url_for('views.delete_property', property_id=property.id) }}" method="POST" onsubmit="return confirmDelete();">
+                  <input type="submit" value="Delete" class="btn btn-danger">
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No properties found.</p>
+      {% endif %}
+    </div>
+  
+  
 {% endblock %}

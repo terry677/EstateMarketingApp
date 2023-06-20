@@ -57,6 +57,7 @@
         <div class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/home">Home</a>
+          <a class="nav-item nav-link" id="dashboard" href="/dashboard">dashboard</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           <form action="{{ url_for('views.delete_acc') }}" method="post">
             <div class="form-group">
@@ -102,7 +103,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
     
   </body>
 </html>

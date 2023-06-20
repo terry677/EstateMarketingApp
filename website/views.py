@@ -25,7 +25,8 @@ def landing_page():
 def dashboard():
     user = get_user_data()
     first_name = user.firstname if user else None
-    return render_template("dashboard.html", user=current_user, first_name=first_name)
+    properties = Property.query.filter_by(user_id=current_user.id).all()
+    return render_template("dashboard.html", user=current_user, first_name=first_name, properties=properties)
 
 @views.route('/upload', methods=['POST','GET'])
 @login_required
@@ -105,3 +106,26 @@ def delete_acc():
     else:
         flash('User not found')
         return redirect(url_for('views.dashboard'))
+    
+@views.route('/delete/<int:property_id>', methods=['POST'])
+@login_required
+def delete_property(property_id):
+    property = Property.query.get(property_id)
+    if property:
+        if property.user_id == current_user.id:
+            # Delete associated images
+            images = property.images
+            for image in images:
+                db.session.delete(image)
+            
+            db.session.delete(property)
+            db.session.commit()
+            
+            flash('Property deleted successfully')
+        else:
+            flash('You can only delete your own properties')
+    else:
+        flash('Property not found')
+    
+    return redirect(url_for('views.home'))
+
