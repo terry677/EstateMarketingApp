@@ -61,12 +61,13 @@
       <div class="card property-card">
         <img src="{{ image.get_image_url() }}" class="card-img-top" alt="{{ image.property.title }}">
         <div class="card-body">
-          <h5 class="card-title">{{ image.property.title }}</h5>
-          <p class="card-text">{{ image.property.description }}</p>
+          <h5 class="card-title">Title: {{ image.property.title }}</h5>
+          <p class="card-text">Description: {{ image.property.description }}</p>
           <p class="card-text">Name: {{ image.property.user.firstname }}</p>
           <p class="card-text">Price:₦ {{ image.property.price|format_price }}</p>
           <p class="card-text">Location: {{ image.property.location }}</p>
           <p class="card-text">Contact: {{ image.property.user.phone_number }}</p>
+          <p class="card-text">Email: {{ image.property.user.email }}</p>
           {% if current_user.id == image.property.user_id %}
             <form action="{{ url_for('views.delete_property', property_id=image.property.id) }}" method="POST">
               <input type="submit" value="Delete" class="btn btn-danger">
