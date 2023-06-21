@@ -1,0 +1,1 @@
+DB_PASSWORD = 'Terry&1234'

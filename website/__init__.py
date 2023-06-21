@@ -4,14 +4,18 @@ from os import path
 from flask_login import LoginManager
 import os
 from .format import format_price
+from . import config 
+
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
-
+DB_NAME = "TexEstate"
+# pymysql.install_as_MySQLdb()
 def create_app():
     app = Flask(__name__, static_folder='static')
     app.config['SECRET_KEY'] = 'test'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqldb://root:{config.DB_PASSWORD}@localhost/{DB_NAME}'
+
     app.config['UPLOAD_FOLDER'] = 'static/uploads'
     db.init_app(app)
 
