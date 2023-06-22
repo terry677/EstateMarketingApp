@@ -13,6 +13,10 @@ def get_user_data():
     else:
         return None
 
+def format_price(value):
+    return '{:,.2f}'.format(value)
+
+
 views = Blueprint('views', __name__)
 
 @views.route('/')
